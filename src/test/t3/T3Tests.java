@@ -146,6 +146,6 @@ public class T3Tests {
         assertEquals(new T3Action(0, 1, 2), a);
     }
     
-    // ... more for you to test!
+    
     
 }

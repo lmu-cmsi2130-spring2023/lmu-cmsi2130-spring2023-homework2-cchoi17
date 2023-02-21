@@ -3,6 +3,8 @@ package main.t3;
 import java.util.*;
 import java.util.stream.IntStream;
 
+import javax.swing.Action;
+
 /**
  * Representation of the T3 grid board-state, which player's turn (odds / evens),
  * and ability to obtain the actions and transitions possible (among other state
@@ -135,8 +137,14 @@ public class T3State {
      * @return The map of legal actions to the next states that they lead.
      */
     public Map<T3Action,T3State> getTransitions () {
-        // [!] TODO
-        throw new UnsupportedOperationException();
+        TreeMap<T3Action, T3State> transitions = new TreeMap<>(); 
+        for(int[] child: getOpenTiles()){
+            for(int move: getMoves()){
+                T3Action action = new T3Action(child[0], child[1], move); 
+                transitions.put(action, getNextState(action)); 
+            }
+        }
+        return transitions;
     }
     
     /**

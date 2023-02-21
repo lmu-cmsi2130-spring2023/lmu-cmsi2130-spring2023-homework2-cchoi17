@@ -22,10 +22,54 @@ public class T3Player {
      * @return The T3Player's optimal action.
      */
     public T3Action choose (T3State state) {
-        throw new UnsupportedOperationException();
+        int alpha = Integer.MIN_VALUE;
+        int beta = Integer.MAX_VALUE;
+        int highestUtility = 0;
+        T3Action actionToTake = new T3Action(0, 0, highestUtility);
+        for(Map.Entry<T3Action, T3State> child : state.getTransitions().entrySet()){
+            if(child.getValue().isWin()){
+                return child.getKey();
+            }
+            else{
+                var thisUtility = alphabeta(child.getValue(), alpha, beta, true);
+                if(thisUtility > highestUtility){
+                    highestUtility = thisUtility;
+                    alpha = highestUtility;
+                    actionToTake = child.getKey();
+                }
+            }
+        }
+        return actionToTake; 
+        // if agent can win in one turn, should choose that action.
+        
     }
     
-    // TODO: Implement your alpha-beta pruning recursive helper here!
-    
+    public int alphabeta(T3State state, int alpha, int beta, boolean turn){ // returns utility and prunes
+        int utility = 0;
+        if(state.getMoves() == null){
+            return utility;
+        }
+        if(turn){
+            utility = Integer.MIN_VALUE;
+            for(Map.Entry<T3Action, T3State> child : state.getTransitions().entrySet()){
+                utility = Math.max(utility, alphabeta(child.getValue(), alpha, beta, false));
+                alpha = Math.max(alpha, utility);
+                if(beta >= alpha){
+                    break;
+                }
+            }
+            return utility;   
+        }
+        else{
+            utility = Integer.MAX_VALUE;
+            for(Map.Entry<T3Action, T3State> child : state.getTransitions().entrySet()){
+                utility = Math.min(utility, alphabeta(child.getValue(), alpha, beta, true));
+                beta = Math.min(beta, utility);
+                if(beta <= alpha){
+                    break;
+                }
+            }
+            return utility;
+        }
+    } 
 }
-
