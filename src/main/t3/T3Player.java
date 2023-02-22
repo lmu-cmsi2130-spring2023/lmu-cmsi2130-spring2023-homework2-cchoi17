@@ -43,7 +43,19 @@ public class T3Player {
         // if agent can win in one turn, should choose that action.
         
     }
-    
+    /**
+     * This method, given the T3Player's state, values of alpha and beta at that state, and 
+     * whether the Player is playing Odds or Evens, returns the utility score. It will also
+     * prune transitions where the beta score is greater than or equal to the alpha
+     * score, meaning the T3Player will not traverse down a path where it will play not
+     * optimally.
+     * 
+     * @param state, alpha, beta, turn
+     *            The state from which the T3Player is making a move decision.
+     *            The values of alpha and beta at that state.
+     *            Whether the T3Player's turn is Odds(true) or Evens(false).
+     * @return The T3Player's utility score.
+     */
     public int alphabeta(T3State state, int alpha, int beta, boolean turn){ // returns utility and prunes
         int utility = 0;
         if(state.getMoves() == null){
