@@ -1,6 +1,9 @@
 package main.t3;
 
 import java.util.*;
+/*
+ * @author Christina Choi 
+ */
 
 /**
  * Artificial Intelligence responsible for playing the game of T3!
